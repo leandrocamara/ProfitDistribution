@@ -4,11 +4,11 @@ using ProfitDistribution.Application.Abstraction.Profits.ViewModels;
 
 namespace ProfitDistribution.Application.Abstraction.Profits.Queries
 {
-    public class GetProfitsDistributionQuery : IRequest<QueryResponse<GetProfitsDistributionViewModel>>
+    public class GetProfitDistributionQuery : IRequest<QueryResponse<GetProfitDistributionViewModel>>
     {
-        public int AmountAvailable { get; }
+        public double AmountAvailable { get; }
 
-        public GetProfitsDistributionQuery(int amountAvailable)
+        public GetProfitDistributionQuery(double amountAvailable)
         {
             AmountAvailable = amountAvailable;
         }

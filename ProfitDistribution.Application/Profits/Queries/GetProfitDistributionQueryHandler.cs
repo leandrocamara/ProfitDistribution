@@ -10,15 +10,15 @@ using ProfitDistribution.Exception;
 
 namespace ProfitDistribution.Application.Profits.Queries
 {
-    public class GetProfitsDistributionQueryHandler : Query<GetProfitsDistributionViewModel>,
-        IRequestHandler<GetProfitsDistributionQuery, QueryResponse<GetProfitsDistributionViewModel>>
+    public class GetProfitDistributionQueryHandler : Query<GetProfitDistributionViewModel>,
+        IRequestHandler<GetProfitDistributionQuery, QueryResponse<GetProfitDistributionViewModel>>
     {
-        public async Task<QueryResponse<GetProfitsDistributionViewModel>> Handle(
-            GetProfitsDistributionQuery query, CancellationToken _)
+        public async Task<QueryResponse<GetProfitDistributionViewModel>> Handle(
+            GetProfitDistributionQuery query, CancellationToken _)
         {
             try
             {
-                return QueryResponseOk(new GetProfitsDistributionViewModel(new List<string>(), 0, 0, 0, 0));
+                return QueryResponseOk(new GetProfitDistributionViewModel(new List<string>(), 0, 0, 0, 0));
             }
             catch (BaseException e)
             {
