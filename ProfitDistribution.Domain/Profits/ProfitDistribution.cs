@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using ProfitDistribution.Domain.Employees;
 
 namespace ProfitDistribution.Domain.Profits
@@ -6,33 +7,41 @@ namespace ProfitDistribution.Domain.Profits
     public class ProfitDistribution
     {
         public int TotalEmployees { get; protected set; }
-        public int TotalDistributed { get; protected set; }
-        public int TotalAvailable { get; protected set; }
-        public int TotalBalanceAvailable { get; protected set; }
-        public List<EmployeeProfitDistribution> Participations { get; protected set; }
+        public double TotalDistributed { get; protected set; }
+        public double TotalAvailable { get; protected set; }
+        public double TotalBalanceAvailable { get; protected set; }
+        public List<ProfitDistributionEmployee> Participations { get; protected set; }
 
-        public static ProfitDistribution New(double amountAvailable, List<Employee> employees)
+        public static ProfitDistribution New(List<Employee> employees, double amountAvailable)
         {
             var profitDistribution = new ProfitDistribution
             {
-                TotalEmployees = 0,
-                TotalDistributed = 0,
-                TotalAvailable = 0,
-                TotalBalanceAvailable = 0,
-                Participations = new List<EmployeeProfitDistribution>()
+                TotalEmployees = employees.Count,
+                TotalAvailable = amountAvailable,
+                Participations = employees.Select(ProfitDistributionEmployee.New).ToList()
             };
 
             profitDistribution.Validate();
+            profitDistribution.CalculateTotalDistributed();
 
             return profitDistribution;
         }
 
+        private void CalculateTotalDistributed()
+        {
+            TotalDistributed = Participations.Sum(p => p.ParticipationValue);
+            TotalBalanceAvailable = TotalDistributed - TotalAvailable;
+        }
+
         private void Validate()
         {
+            // TODO
         }
 
         private ProfitDistribution()
         {
+            TotalDistributed = 0;
+            TotalBalanceAvailable = 0;
         }
     }
 }

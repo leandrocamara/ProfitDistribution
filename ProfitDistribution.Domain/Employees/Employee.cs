@@ -42,6 +42,7 @@ namespace ProfitDistribution.Domain.Employees
 
         private void Validate()
         {
+            // TODO
         }
 
         private Employee()
