@@ -10,14 +10,14 @@ namespace ProfitDistribution.Domain.ValueObjects
             _value = value;
         }
 
-        public override string ToString()
-        {
-            return _value;
-        }
-
         public bool IsIntern()
         {
             return _value.Equals(Intern);
+        }
+
+        public override string ToString()
+        {
+            return _value;
         }
     }
 }

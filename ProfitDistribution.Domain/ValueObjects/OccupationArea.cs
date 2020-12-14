@@ -26,6 +26,7 @@ namespace ProfitDistribution.Domain.ValueObjects
                 {GeneralServices, "Serviços Gerais"},
                 {CustomerRelationship, "Relacionamento com o Cliente"}
             };
+
             _value = GetKeyByValue(value);
         }
 
@@ -46,19 +47,9 @@ namespace ProfitDistribution.Domain.ValueObjects
             return _occupationAreas.GetValueOrDefault(_value);
         }
 
-        public bool Equals(string description)
-        {
-            return ToString().Equals(description);
-        }
-
         public bool Equals(int value)
         {
             return _value.Equals(value);
-        }
-
-        public bool Equals(OccupationArea area)
-        {
-            return Equals(area.ToInt());
         }
 
         private int GetKeyByValue(string value)

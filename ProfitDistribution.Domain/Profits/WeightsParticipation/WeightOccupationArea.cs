@@ -28,7 +28,8 @@ namespace ProfitDistribution.Domain.Profits.WeightsParticipation
             if (area.IsCustomerRelationship())
                 return WeightFive;
 
-            throw new DomainException(Messages.OccupationAreaNotIncludedDistributionProfits(area.ToString()));
+            throw new DomainException(
+                Messages.Format(Messages.OccupationAreaNotIncludedDistributionProfits, area.ToString()));
         }
 
         private WeightOccupationArea(Employee employee) : base(employee)
