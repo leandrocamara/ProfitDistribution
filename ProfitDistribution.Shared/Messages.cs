@@ -4,10 +4,11 @@ namespace ProfitDistribution.Shared
 {
     public static class Messages
     {
-        public const string RegisterNotFound = "Register not found.";
-
         public static string RequiredField(string field) => Format(MsgRequiredField, field);
         public static string InvalidField(string field) => Format(MsgInvalidField, field);
+
+        public static string OccupationAreaNotIncludedDistributionProfits(string area) =>
+            Format(MsgOccupationAreaNotIncludedDistributionProfits, area);
 
         private static string Format(string message, string arg)
         {
@@ -21,5 +22,8 @@ namespace ProfitDistribution.Shared
 
         private const string MsgRequiredField = "Required field: {0}.";
         private const string MsgInvalidField = "Invalid field: {0}.";
+
+        private const string MsgOccupationAreaNotIncludedDistributionProfits =
+            "Occupation Area not included in the distribution of profits";
     }
 }

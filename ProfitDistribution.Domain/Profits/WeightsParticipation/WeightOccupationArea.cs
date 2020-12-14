@@ -1,4 +1,6 @@
 using ProfitDistribution.Domain.Employees;
+using ProfitDistribution.Exception.DomainExceptions;
+using ProfitDistribution.Shared;
 
 namespace ProfitDistribution.Domain.Profits.WeightsParticipation
 {
@@ -15,7 +17,18 @@ namespace ProfitDistribution.Domain.Profits.WeightsParticipation
 
         protected override byte DefineWeight()
         {
-            throw new System.NotImplementedException();
+            var area = Employee.Area;
+
+            if (area.IsBoardDirectors())
+                return WeightOne;
+            if (area.IsAccounting() || area.IsFinancial() || area.IsTechnology())
+                return WeightTwo;
+            if (area.IsGeneralServices())
+                return WeightThree;
+            if (area.IsCustomerRelationship())
+                return WeightFive;
+
+            throw new DomainException(Messages.OccupationAreaNotIncludedDistributionProfits(area.ToString()));
         }
 
         private WeightOccupationArea(Employee employee) : base(employee)

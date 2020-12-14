@@ -29,6 +29,13 @@ namespace ProfitDistribution.Domain.ValueObjects
             _value = GetKeyByValue(value);
         }
 
+        public bool IsBoardDirectors() => Equals(BoardDirectors);
+        public bool IsAccounting() => Equals(Accounting);
+        public bool IsFinancial() => Equals(Financial);
+        public bool IsTechnology() => Equals(Technology);
+        public bool IsGeneralServices() => Equals(GeneralServices);
+        public bool IsCustomerRelationship() => Equals(CustomerRelationship);
+
         public int ToInt()
         {
             return _value;
@@ -51,7 +58,7 @@ namespace ProfitDistribution.Domain.ValueObjects
 
         public bool Equals(OccupationArea area)
         {
-            return _value.Equals(area.ToInt());
+            return Equals(area.ToInt());
         }
 
         private int GetKeyByValue(string value)
