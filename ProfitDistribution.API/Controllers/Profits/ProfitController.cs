@@ -26,12 +26,12 @@ namespace ProfitDistribution.API.Controllers.Profits
 
         [HttpGet("Distribution")]
         [ProducesResponseType(StatusCodes.Status200OK,
-            Type = typeof(CommonResponseViewModel<GetProfitsDistributionViewModel>))]
+            Type = typeof(CommonResponseViewModel<GetProfitDistributionViewModel>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IResponse> GetProfitsDistribution([FromQuery] [Required] int amountAvailable)
+        public async Task<IResponse> GetProfitsDistribution([FromQuery] [Required] double amountAvailable)
         {
-            var query = new GetProfitsDistributionQuery(amountAvailable);
+            var query = new GetProfitDistributionQuery(amountAvailable);
             return await _mediator.Send(query);
         }
     }

@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ProfitDistribution.Application.Abstraction\ProfitDistribution.Application.Abstraction.csproj" />
+      <ProjectReference Include="..\ProfitDistribution.Domain\ProfitDistribution.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

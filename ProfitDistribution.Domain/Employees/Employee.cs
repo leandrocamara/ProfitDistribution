@@ -22,8 +22,8 @@ namespace ProfitDistribution.Domain.Employees
         {
             var employee = new Employee
             {
-                Registration = registration,
                 Name = name,
+                Registration = registration,
                 Area = new OccupationArea(area),
                 Position = new Position(position),
                 GrossSalary = new Salary(grossSalary),
@@ -42,6 +42,7 @@ namespace ProfitDistribution.Domain.Employees
 
         private void Validate()
         {
+            // TODO
         }
 
         private Employee()

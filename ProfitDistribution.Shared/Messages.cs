@@ -4,22 +4,13 @@ namespace ProfitDistribution.Shared
 {
     public static class Messages
     {
-        public const string RegisterNotFound = "Register not found.";
+        public const string RequiredField = "Required field: {0}.";
+        public const string InvalidField = "Invalid field: {0}.";
 
-        public static string RequiredField(string field) => Format(MsgRequiredField, field);
-        public static string InvalidField(string field) => Format(MsgInvalidField, field);
+        public const string OccupationAreaNotIncludedDistributionProfits =
+            "Occupation Area not included in the distribution of profits: {0}";
 
-        private static string Format(string message, string arg)
-        {
-            return string.Format(message, arg);
-        }
-
-        private static string Format(string message, IEnumerable<string> fields)
-        {
-            return string.Format(message, fields);
-        }
-
-        private const string MsgRequiredField = "Required field: {0}.";
-        private const string MsgInvalidField = "Invalid field: {0}.";
+        public static string Format(string message, string arg) => string.Format(message, arg);
+        public static string Format(string message, IEnumerable<string> args) => string.Format(message, args);
     }
 }
