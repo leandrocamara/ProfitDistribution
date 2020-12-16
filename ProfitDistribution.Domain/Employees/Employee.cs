@@ -1,5 +1,7 @@
 using System;
 using ProfitDistribution.Domain.ValueObjects;
+using ProfitDistribution.Exception.DomainExceptions;
+using ProfitDistribution.Shared;
 
 namespace ProfitDistribution.Domain.Employees
 {
@@ -42,7 +44,23 @@ namespace ProfitDistribution.Domain.Employees
 
         private void Validate()
         {
-            // TODO
+            if (string.IsNullOrEmpty(Name))
+                throw new InvalidFieldException(Messages.Format(Messages.RequiredProperty, nameof(Name)));
+
+            if (string.IsNullOrEmpty(Registration))
+                throw new InvalidFieldException(Messages.Format(Messages.RequiredProperty, nameof(Registration)));
+
+            if (string.IsNullOrEmpty(Area.ToString()))
+                throw new InvalidFieldException(Messages.Format(Messages.RequiredProperty, nameof(Area)));
+
+            if (string.IsNullOrEmpty(Position.ToString()))
+                throw new InvalidFieldException(Messages.Format(Messages.RequiredProperty, nameof(Position)));
+
+            if (GrossMoney.IsNegative())
+                throw new InvalidFieldException(Messages.Format(Messages.InvalidValue, nameof(GrossMoney)));
+
+            if (AdmissionDate.Equals(DateTime.MinValue))
+                throw new InvalidFieldException(Messages.Format(Messages.InvalidValue, nameof(AdmissionDate)));
         }
 
         private Employee()

@@ -21,7 +21,7 @@ namespace ProfitDistribution.Domain.ValueObjects
             var valueCleaned = ValueCleaned(value);
 
             if (!double.TryParse(valueCleaned, out var valueParsed))
-                throw new InvalidFieldException(Messages.Format(Messages.InvalidValue, value));
+                throw new InvalidFieldException(Messages.InvalidMoney);
 
             _value = valueParsed;
         }
@@ -39,6 +39,11 @@ namespace ProfitDistribution.Domain.ValueObjects
         public string ToCurrency()
         {
             return ToDouble().ToString("C2", CultureInfo.CreateSpecificCulture("pt-BR"));
+        }
+
+        public bool IsNegative()
+        {
+            return _value < 0;
         }
 
         private static string ValueCleaned(string value)
