@@ -30,7 +30,7 @@ namespace ProfitDistribution.Domain.Profits
 
         private void CalculateTotalDistributed()
         {
-            var totalDistributed = Participations.Sum(p => p.ParticipationValue);
+            var totalDistributed = Participations.Sum(p => p.ParticipationValue.ToDouble());
             var totalBalanceAvailable = TotalAvailable.ToDouble() - totalDistributed;
 
             TotalDistributed = new Money(totalDistributed);

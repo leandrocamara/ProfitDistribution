@@ -12,8 +12,8 @@ using ProfitDistribution.Exception;
 
 namespace ProfitDistribution.Application.Profits.Queries
 {
-    public class GetProfitDistributionQueryHandler : Query<GetProfitDistributionViewModel>,
-        IRequestHandler<GetProfitDistributionQuery, QueryResponse<GetProfitDistributionViewModel>>
+    public class GetProfitDistributionQueryHandler : Query<ProfitDistributionViewModel>,
+        IRequestHandler<GetProfitDistributionQuery, QueryResponse<ProfitDistributionViewModel>>
     {
         private readonly IProfitService _profitService;
 
@@ -22,7 +22,7 @@ namespace ProfitDistribution.Application.Profits.Queries
             _profitService = profitService;
         }
 
-        public async Task<QueryResponse<GetProfitDistributionViewModel>> Handle(
+        public async Task<QueryResponse<ProfitDistributionViewModel>> Handle(
             GetProfitDistributionQuery query, CancellationToken _)
         {
             try
@@ -30,12 +30,16 @@ namespace ProfitDistribution.Application.Profits.Queries
                 var amountAvailableMoney = new Money(query.AmountAvailable);
                 var profitDistribution = await _profitService.GetProfitDistribution(amountAvailableMoney);
 
-                return QueryResponseOk(new GetProfitDistributionViewModel(
+                return QueryResponseOk(new ProfitDistributionViewModel(
                     profitDistribution.TotalEmployees,
                     profitDistribution.TotalDistributed.ToCurrency(),
                     profitDistribution.TotalAvailable.ToCurrency(),
                     profitDistribution.TotalBalanceAvailable.ToCurrency(),
-                    profitDistribution.Participations.Select(p => p.Employee.Name).ToList()));
+                    profitDistribution.Participations.Select(p => new ProfitDistributionEmployeeViewModel(
+                        p.Employee.Registration,
+                        p.Employee.Name,
+                        p.ParticipationValue.ToCurrency())
+                    ).ToList()));
             }
             catch (BaseException e)
             {
