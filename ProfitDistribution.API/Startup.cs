@@ -33,7 +33,7 @@ namespace ProfitDistribution.API
                 .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true)
                 .AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = false);
 
-            services.AddBootstrapperIoC(Configuration, Environment);
+            services.AddBootstrapperIoC();
 
             services.AddSwaggerGen(c =>
             {

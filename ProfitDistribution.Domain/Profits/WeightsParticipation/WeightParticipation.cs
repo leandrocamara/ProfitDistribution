@@ -18,7 +18,7 @@ namespace ProfitDistribution.Domain.Profits.WeightsParticipation
             Validate();
         }
 
-        protected abstract byte DefineWeight();
+        protected abstract void DefineWeight();
 
         private void Validate()
         {

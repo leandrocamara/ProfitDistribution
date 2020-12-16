@@ -29,7 +29,7 @@ namespace ProfitDistribution.API.Controllers.Profits
             Type = typeof(CommonResponseViewModel<GetProfitDistributionViewModel>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IResponse> GetProfitsDistribution([FromQuery] [Required] double amountAvailable)
+        public async Task<IResponse> GetProfitsDistribution([FromQuery] [Required] string amountAvailable)
         {
             var query = new GetProfitDistributionQuery(amountAvailable);
             return await _mediator.Send(query);

@@ -24,7 +24,7 @@ namespace ProfitDistribution.Domain.Profits
         private void CalculateBonus()
         {
             const int numberMonthsYear = 12;
-            var grossSalary = Employee.GrossSalary.ToDouble();
+            var grossSalary = Employee.GrossMoney.ToDouble();
             var weightSalaryRange = WeightSalaryRange.New(Employee).Weight;
             var weightAdmissionDate = WeightAdmissionDate.New(Employee).Weight;
             var weightOccupationArea = WeightOccupationArea.New(Employee).Weight;

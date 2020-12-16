@@ -1,48 +1,36 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Firebase.Database.Query;
+using ProfitDistribution.Infrastructure.Repository.Context;
+using ProfitDistribution.Infrastructure.Repository.Repositories.Contracts;
 using ProfitDistribution.Infrastructure.Repository.Repositories.Interfaces;
 
 namespace ProfitDistribution.Infrastructure.Repository.Repositories
 {
-    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    public abstract class RepositoryBase<TEntity, TEntityContract> : IRepositoryBase<TEntity>
+        where TEntity : class
+        where TEntityContract : IContract<TEntity>
     {
-        // protected readonly DbContext Context;
-        // protected readonly DbSet<TEntity> EntitySet;
+        protected readonly ProfitDistributionDbContext Context;
 
-        protected RepositoryBase( /*DbContext context*/)
+        private readonly string _resourceName;
+
+        protected RepositoryBase(ProfitDistributionDbContext context, string resourceName)
         {
-            // Context = context;
-            // EntitySet = context.Set<TEntity>();
+            Context = context;
+            _resourceName = resourceName;
         }
 
-        public virtual async Task<TEntity> GetAsync(object id)
+        public virtual async Task<IList<TEntity>> GetAllAsync()
         {
-            return null;
-            // return await EntitySet.FindAsync(id);
-        }
-
-        public virtual async Task<IList<TEntity>> ListAllAsync()
-        {
-            return null;
-            // return await EntitySet.ToListAsync();
+            var entities = await Context.Client.Child(_resourceName).OnceSingleAsync<List<TEntityContract>>();
+            return entities.Select(e => e.Parse()).ToList();
         }
 
         public virtual async Task SaveAsync(TEntity entity)
         {
-            // await UpdateAsync(entity);
-        }
-
-        public virtual async Task UpdateAsync(TEntity entity)
-        {
-            // if (!IsAttached(entity))
-            // await EntitySet.AddAsync(entity);
-            // await Context.SaveChangesAsync();
-        }
-
-        public virtual async Task DeleteAsync(TEntity entity)
-        {
-            // EntitySet.Remove(entity);
-            // await Context.SaveChangesAsync();
+            await Context.Client.Child(_resourceName).PostAsync(entity);
         }
     }
 }

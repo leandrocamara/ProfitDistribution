@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using ProfitDistribution.Domain.Employees.Interfaces;
 using ProfitDistribution.Domain.Profits.Interfaces;
+using ProfitDistribution.Domain.ValueObjects;
 
 namespace ProfitDistribution.Domain.Profits
 {
@@ -8,12 +9,12 @@ namespace ProfitDistribution.Domain.Profits
     {
         private readonly IEmployeeRepository _employeeRepository;
 
-        // public ProfitService(IEmployeeRepository employeeRepository)
-        // {
-        //     _employeeRepository = employeeRepository;
-        // }
+        public ProfitService(IEmployeeRepository employeeRepository)
+        {
+            _employeeRepository = employeeRepository;
+        }
 
-        public async Task<ProfitDistribution> GetProfitDistribution(double amountAvailable)
+        public async Task<ProfitDistribution> GetProfitDistribution(Money amountAvailable)
         {
             var employees = await _employeeRepository.GetAll();
             return ProfitDistribution.New(employees, amountAvailable);

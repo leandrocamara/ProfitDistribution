@@ -7,6 +7,7 @@ using ProfitDistribution.Application.Abstraction.Profits.Queries;
 using ProfitDistribution.Application.Abstraction.Profits.ViewModels;
 using ProfitDistribution.Application.Common;
 using ProfitDistribution.Domain.Profits.Interfaces;
+using ProfitDistribution.Domain.ValueObjects;
 using ProfitDistribution.Exception;
 
 namespace ProfitDistribution.Application.Profits.Queries
@@ -26,13 +27,14 @@ namespace ProfitDistribution.Application.Profits.Queries
         {
             try
             {
-                var profitDistribution = await _profitService.GetProfitDistribution(query.AmountAvailable);
+                var amountAvailableMoney = new Money(query.AmountAvailable);
+                var profitDistribution = await _profitService.GetProfitDistribution(amountAvailableMoney);
 
                 return QueryResponseOk(new GetProfitDistributionViewModel(
                     profitDistribution.TotalEmployees,
-                    profitDistribution.TotalDistributed,
-                    profitDistribution.TotalAvailable,
-                    profitDistribution.TotalBalanceAvailable,
+                    profitDistribution.TotalDistributed.ToCurrency(),
+                    profitDistribution.TotalAvailable.ToCurrency(),
+                    profitDistribution.TotalBalanceAvailable.ToCurrency(),
                     profitDistribution.Participations.Select(p => p.Employee.Name).ToList()));
             }
             catch (BaseException e)

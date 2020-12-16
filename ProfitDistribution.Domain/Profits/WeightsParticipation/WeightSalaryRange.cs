@@ -17,18 +17,18 @@ namespace ProfitDistribution.Domain.Profits.WeightsParticipation
             return weight;
         }
 
-        protected override byte DefineWeight()
+        protected override void DefineWeight()
         {
-            var amountMinimumWages = Employee.GrossSalary.AmountMinimumWages();
+            var amountMinimumWages = Employee.GrossMoney.AmountMinimumWages();
 
             if (Employee.Position.IsIntern() || amountMinimumWages <= ThreeMinimumWages)
-                return WeightOne;
-            if (amountMinimumWages > ThreeMinimumWages && amountMinimumWages <= FiveMinimumWages)
-                return WeightTwo;
-            if (amountMinimumWages > FiveMinimumWages && amountMinimumWages <= EightMinimumWages)
-                return WeightThree;
-
-            return WeightFive;
+                Weight = WeightOne;
+            else if (amountMinimumWages > ThreeMinimumWages && amountMinimumWages <= FiveMinimumWages)
+                Weight = WeightTwo;
+            else if (amountMinimumWages > FiveMinimumWages && amountMinimumWages <= EightMinimumWages)
+                Weight = WeightThree;
+            else
+                Weight = WeightFive;
         }
 
         private WeightSalaryRange(Employee employee) : base(employee)

@@ -5,6 +5,6 @@ namespace ProfitDistribution.Domain.Employees.Interfaces
 {
     public interface IEmployeeRepository
     {
-        Task<List<Employee>> GetAll();
+        Task<IList<Employee>> GetAll();
     }
 }

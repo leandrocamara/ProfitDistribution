@@ -9,7 +9,7 @@ namespace ProfitDistribution.Domain.Employees
         public string Name { get; protected set; }
         public OccupationArea Area { get; protected set; }
         public Position Position { get; protected set; }
-        public Salary GrossSalary { get; protected set; }
+        public Money GrossMoney { get; protected set; }
         public DateTime AdmissionDate { get; protected set; }
 
         public static Employee New(
@@ -17,7 +17,7 @@ namespace ProfitDistribution.Domain.Employees
             string name,
             string area,
             string position,
-            double grossSalary,
+            string grossSalary,
             DateTime admissionDate)
         {
             var employee = new Employee
@@ -26,7 +26,7 @@ namespace ProfitDistribution.Domain.Employees
                 Registration = registration,
                 Area = new OccupationArea(area),
                 Position = new Position(position),
-                GrossSalary = new Salary(grossSalary),
+                GrossMoney = new Money(grossSalary),
                 AdmissionDate = admissionDate
             };
 
