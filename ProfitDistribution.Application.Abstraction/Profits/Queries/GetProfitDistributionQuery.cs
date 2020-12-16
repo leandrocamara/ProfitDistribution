@@ -6,9 +6,9 @@ namespace ProfitDistribution.Application.Abstraction.Profits.Queries
 {
     public class GetProfitDistributionQuery : IRequest<QueryResponse<GetProfitDistributionViewModel>>
     {
-        public double AmountAvailable { get; }
+        public string AmountAvailable { get; }
 
-        public GetProfitDistributionQuery(double amountAvailable)
+        public GetProfitDistributionQuery(string amountAvailable)
         {
             AmountAvailable = amountAvailable;
         }

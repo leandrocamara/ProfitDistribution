@@ -15,21 +15,23 @@ namespace ProfitDistribution.Domain.Profits.WeightsParticipation
             return weight;
         }
 
-        protected override byte DefineWeight()
+        protected override void DefineWeight()
         {
             var area = Employee.Area;
 
             if (area.IsBoardDirectors())
-                return WeightOne;
-            if (area.IsAccounting() || area.IsFinancial() || area.IsTechnology())
-                return WeightTwo;
-            if (area.IsGeneralServices())
-                return WeightThree;
-            if (area.IsCustomerRelationship())
-                return WeightFive;
-
-            throw new DomainException(
-                Messages.Format(Messages.OccupationAreaNotIncludedDistributionProfits, area.ToString()));
+                Weight = WeightOne;
+            else if (area.IsAccounting() || area.IsFinancial() || area.IsTechnology())
+                Weight = WeightTwo;
+            else if (area.IsGeneralServices())
+                Weight = WeightThree;
+            else if (area.IsCustomerRelationship())
+                Weight = WeightFive;
+            else
+            {
+                throw new DomainException(Messages.Format(
+                    Messages.OccupationAreaNotIncludedDistributionProfits, area.ToString()));
+            }
         }
 
         private WeightOccupationArea(Employee employee) : base(employee)

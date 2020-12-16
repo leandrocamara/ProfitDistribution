@@ -1,31 +1,19 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ProfitDistribution.Domain.Employees.Interfaces;
+using ProfitDistribution.Infrastructure.Repository.Context;
+using ProfitDistribution.Infrastructure.Repository.Repositories;
 
 namespace ProfitDistribution.Infrastructure.Repository
 {
     public static class Bootstrapper
     {
-        public static IServiceCollection AddBootstrapperRepository(
-            this IServiceCollection services,
-            IConfiguration configuration,
-            IHostEnvironment env,
-            string configConnectionString = "DefaultConnection")
+        public static IServiceCollection AddBootstrapperRepository(this IServiceCollection services)
         {
-            ConfigureDbContext(services, configuration, env, configConnectionString);
+            services.AddScoped<ProfitDistributionDbContext>();
 
-            // services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             return services;
-        }
-
-        private static void ConfigureDbContext(
-            IServiceCollection services,
-            IConfiguration configuration,
-            IHostEnvironment env,
-            string configConnectionString)
-        {
-            // services.AddScoped<DbContext>(s => s.GetService<ProfitDistributionDbContext>());
         }
     }
 }

@@ -17,18 +17,18 @@ namespace ProfitDistribution.Domain.Profits.WeightsParticipation
             return weight;
         }
 
-        protected override byte DefineWeight()
+        protected override void DefineWeight()
         {
             var admissionTimeInYears = Employee.AdmissionTimeInYears();
 
             if (admissionTimeInYears <= OneYear)
-                return WeightOne;
-            if (admissionTimeInYears > OneYear && admissionTimeInYears <= ThreeYear)
-                return WeightTwo;
-            if (admissionTimeInYears > ThreeYear && admissionTimeInYears <= EightYear)
-                return WeightThree;
-
-            return WeightFive;
+                Weight = WeightOne;
+            else if (admissionTimeInYears > OneYear && admissionTimeInYears <= ThreeYear)
+                Weight = WeightTwo;
+            else if (admissionTimeInYears > ThreeYear && admissionTimeInYears <= EightYear)
+                Weight = WeightThree;
+            else
+                Weight = WeightFive;
         }
 
         private WeightAdmissionDate(Employee employee) : base(employee)
