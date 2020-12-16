@@ -1,4 +1,6 @@
 using ProfitDistribution.Domain.Employees;
+using ProfitDistribution.Exception.DomainExceptions;
+using ProfitDistribution.Shared;
 
 namespace ProfitDistribution.Domain.Profits.WeightsParticipation
 {
@@ -22,7 +24,8 @@ namespace ProfitDistribution.Domain.Profits.WeightsParticipation
 
         private void Validate()
         {
-            // TODO
+            if (Employee == null)
+                throw new InvalidFieldException(Messages.Format(Messages.RequiredProperty, nameof(Employee)));
         }
     }
 }

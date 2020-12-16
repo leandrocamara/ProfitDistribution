@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ProfitDistribution.Domain.Employees;
 using ProfitDistribution.Domain.ValueObjects;
+using ProfitDistribution.Exception.DomainExceptions;
+using ProfitDistribution.Shared;
 
 namespace ProfitDistribution.Domain.Profits
 {
@@ -35,11 +37,18 @@ namespace ProfitDistribution.Domain.Profits
 
             TotalDistributed = new Money(totalDistributed);
             TotalBalanceAvailable = new Money(totalBalanceAvailable);
+
+            if (TotalBalanceAvailable.IsNegative())
+            {
+                throw new DomainException(Messages.Format(Messages.InsufficientAmountAvailable,
+                    new object[] {TotalDistributed.ToCurrency(), TotalBalanceAvailable.ToCurrency()}));
+            }
         }
 
         private void Validate()
         {
-            // TODO
+            if (TotalAvailable.IsNegative())
+                throw new InvalidFieldException(Messages.Format(Messages.InvalidValue, nameof(TotalAvailable)));
         }
 
         private ProfitDistribution()
