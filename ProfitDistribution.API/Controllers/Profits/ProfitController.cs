@@ -26,7 +26,7 @@ namespace ProfitDistribution.API.Controllers.Profits
 
         [HttpGet("Distribution")]
         [ProducesResponseType(StatusCodes.Status200OK,
-            Type = typeof(CommonResponseViewModel<GetProfitDistributionViewModel>))]
+            Type = typeof(CommonResponseViewModel<ProfitDistributionViewModel>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IResponse> GetProfitsDistribution([FromQuery] [Required] string amountAvailable)

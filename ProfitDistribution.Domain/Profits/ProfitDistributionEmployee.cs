@@ -1,12 +1,13 @@
 using ProfitDistribution.Domain.Employees;
 using ProfitDistribution.Domain.Profits.WeightsParticipation;
+using ProfitDistribution.Domain.ValueObjects;
 
 namespace ProfitDistribution.Domain.Profits
 {
     public class ProfitDistributionEmployee
     {
         public Employee Employee { get; protected set; }
-        public double ParticipationValue { get; protected set; }
+        public Money ParticipationValue { get; protected set; }
 
         public static ProfitDistributionEmployee New(Employee employee)
         {
@@ -29,8 +30,11 @@ namespace ProfitDistribution.Domain.Profits
             var weightAdmissionDate = WeightAdmissionDate.New(Employee).Weight;
             var weightOccupationArea = WeightOccupationArea.New(Employee).Weight;
 
-            ParticipationValue = ((grossSalary * weightAdmissionDate + grossSalary * weightOccupationArea) /
-                                  weightSalaryRange) * numberMonthsYear;
+            var participationValue =
+                ((grossSalary * weightAdmissionDate + grossSalary * weightOccupationArea) / weightSalaryRange) *
+                numberMonthsYear;
+
+            ParticipationValue = new Money(participationValue);
         }
 
         private void Validate()
@@ -40,7 +44,7 @@ namespace ProfitDistribution.Domain.Profits
 
         private ProfitDistributionEmployee()
         {
-            ParticipationValue = 0;
+            ParticipationValue = new Money(0);
         }
     }
 }

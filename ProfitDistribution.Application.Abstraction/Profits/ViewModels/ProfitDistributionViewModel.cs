@@ -2,20 +2,20 @@ using System.Collections.Generic;
 
 namespace ProfitDistribution.Application.Abstraction.Profits.ViewModels
 {
-    public class GetProfitDistributionViewModel
+    public class ProfitDistributionViewModel
     {
         public int TotalEmployees { get; }
         public string TotalDistributed { get; }
         public string TotalAvailable { get; }
         public string TotalBalanceAvailable { get; }
-        public List<string> Participations { get; }
+        public List<ProfitDistributionEmployeeViewModel> Participations { get; }
 
-        public GetProfitDistributionViewModel(
+        public ProfitDistributionViewModel(
             int totalEmployees,
             string totalDistributed,
             string totalAvailable,
             string totalBalanceAvailable,
-            List<string> participations)
+            List<ProfitDistributionEmployeeViewModel> participations)
         {
             Participations = participations;
             TotalEmployees = totalEmployees;
