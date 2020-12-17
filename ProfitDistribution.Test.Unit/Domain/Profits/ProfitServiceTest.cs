@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using Moq;
+using ProfitDistribution.Domain.Employees;
 using ProfitDistribution.Domain.Employees.Interfaces;
 using ProfitDistribution.Domain.Profits;
+using ProfitDistribution.Domain.ValueObjects;
 using Xunit;
 
 namespace ProfitDistribution.Test.Unit.Domain.Profits
@@ -17,11 +20,19 @@ namespace ProfitDistribution.Test.Unit.Domain.Profits
         }
 
         [Fact]
-        public void ProfitDistribution_AmountAvailableIsSufficient_ProfitDistributed()
+        public async void ProfitDistribution_AmountAvailableIsSufficient_ProfitDistributed()
         {
             // Arrange
+            var employees = new List<Employee>();
+            _employeeRepositoryMock.Setup(er => er.GetAll()).ReturnsAsync(employees);
+
+            var amountAvailable = new Money(2150350);
+
             // Act
+            var exception = await Record.ExceptionAsync(() => _profitService.GetProfitDistribution(amountAvailable));
+
             // Assert
+            Assert.Null(exception);
         }
     }
 }

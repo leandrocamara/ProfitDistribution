@@ -8,8 +8,9 @@ namespace ProfitDistribution.Domain.ValueObjects
 {
     public struct Money
     {
+        public const double MinimumSalaryWage = 1045.00;
+
         private readonly double _value;
-        private const double MinimumSalaryWage = 1045.00;
 
         public Money(double value)
         {
