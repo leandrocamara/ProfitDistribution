@@ -2,8 +2,9 @@ namespace ProfitDistribution.Domain.ValueObjects
 {
     public struct Position
     {
+        public const string Intern = "Estagiário";
+
         private readonly string _value;
-        private const string Intern = "Estagiário";
 
         public Position(string value)
         {
