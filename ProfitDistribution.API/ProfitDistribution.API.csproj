@@ -17,8 +17,4 @@
       <ProjectReference Include="..\ProfitDistribution.IoC\ProfitDistribution.IoC.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controllers" />
-    </ItemGroup>
-
 </Project>
