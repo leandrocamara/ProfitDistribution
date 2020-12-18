@@ -5,6 +5,7 @@ namespace ProfitDistribution.Shared
         public const string RequiredProperty = "Required property: {0}";
         public const string InvalidValue = "Invalid value: {0}";
         public const string InvalidMoney = "Invalid money";
+        public const string ConnectionDatabaseFailed = "Connection to the database failed. Please try again later.";
 
         public const string OccupationAreaNotIncludedDistributionProfits =
             "Occupation Area not included in the distribution of profits: {0}";
