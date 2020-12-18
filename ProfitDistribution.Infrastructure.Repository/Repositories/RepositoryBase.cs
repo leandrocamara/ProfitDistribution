@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Firebase.Database.Query;
+using ProfitDistribution.Exception;
 using ProfitDistribution.Infrastructure.Repository.Context;
 using ProfitDistribution.Infrastructure.Repository.Repositories.Contracts;
 using ProfitDistribution.Infrastructure.Repository.Repositories.Interfaces;
+using ProfitDistribution.Shared;
 
 namespace ProfitDistribution.Infrastructure.Repository.Repositories
 {
@@ -24,13 +26,27 @@ namespace ProfitDistribution.Infrastructure.Repository.Repositories
 
         public virtual async Task<IList<TEntity>> GetAllAsync()
         {
-            var entities = await Context.Client.Child(_resourceName).OnceSingleAsync<List<TEntityContract>>();
-            return entities.Select(e => e.Parse()).ToList();
+            try
+            {
+                var entities = await Context.Client.Child(_resourceName).OnceSingleAsync<List<TEntityContract>>();
+                return entities.Select(e => e.Parse()).ToList();
+            }
+            catch (System.Exception)
+            {
+                throw new BaseException(Messages.ConnectionDatabaseFailed);
+            }
         }
 
         public virtual async Task SaveAsync(TEntity entity)
         {
-            await Context.Client.Child(_resourceName).PostAsync(entity);
+            try
+            {
+                await Context.Client.Child(_resourceName).PostAsync(entity);
+            }
+            catch (System.Exception e)
+            {
+                throw new BaseException(e.Message);
+            }
         }
     }
 }
