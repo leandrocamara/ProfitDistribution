@@ -50,7 +50,7 @@ namespace ProfitDistribution.Domain.ValueObjects
         private static string ValueCleaned(string value)
         {
             var valueCleaned = Regex.Replace(value, @"[^\d+,\d+]", "");
-            return valueCleaned.Replace(",", ".");
+            return valueCleaned;
         }
     }
 }
